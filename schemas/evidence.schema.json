@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://globalgrid2050.com/reports/schemas/evidence.schema.json",
+  "title": "GlobalGrid2050 Evidence Object",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "evidence_class",
+    "title",
+    "source_application",
+    "source_kind",
+    "created_at",
+    "content_hash",
+    "confidence_state",
+    "verification_state",
+    "public_publishable",
+    "disclaimer_strength"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "evidence_class": {
+      "type": "string",
+      "enum": [
+        "physical",
+        "calculated",
+        "market",
+        "financial",
+        "gis",
+        "regulatory",
+        "knowledge",
+        "ai",
+        "photographic",
+        "field_observation",
+        "measurement",
+        "simulation",
+        "external_authority",
+        "user_supplied",
+        "synthetic"
+      ]
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string" },
+    "source_application": { "type": "string", "minLength": 1 },
+    "source_kind": {
+      "type": "string",
+      "enum": ["csv", "json", "html", "user_input", "map", "calculation", "image", "text", "external_url", "synthetic"]
+    },
+    "source_uri": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "kernel_registry_version": { "type": ["integer", "string", "null"] },
+    "content_hash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" },
+    "confidence_state": {
+      "type": "string",
+      "enum": ["screening", "indicative", "user_supplied", "verified", "unread", "unknown"]
+    },
+    "verification_state": {
+      "type": "string",
+      "enum": ["synthetic", "snapshot", "live", "verified", "unverified", "unread"]
+    },
+    "public_publishable": { "type": "boolean" },
+    "disclaimer_strength": {
+      "type": "string",
+      "enum": ["none", "screening", "engineering_safety", "commercial", "confidential_internal"]
+    },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "data": { "type": ["object", "array", "string", "number", "boolean", "null"] }
+  }
+}
