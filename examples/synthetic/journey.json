@@ -1,0 +1,17 @@
+{
+  "journey_id": "journey-synthetic-001",
+  "title": "Synthetic browser journey",
+  "created_at": "2026-07-06T00:00:00Z",
+  "kernel_registry_version": null,
+  "storage_model": "synthetic",
+  "entries": [
+    {
+      "step_id": "step-001",
+      "timestamp": "2026-07-06T00:00:00Z",
+      "application": "reports/studio",
+      "action": "create synthetic evidence",
+      "description": "A synthetic journey entry showing how an app can attach evidence to a report journey.",
+      "evidence_ids": ["EV-SYN-001"]
+    }
+  ]
+}
