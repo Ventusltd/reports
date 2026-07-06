@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://globalgrid2050.com/reports/schemas/report-dna.schema.json",
+  "title": "GlobalGrid2050 Report DNA Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "report_id",
+    "title",
+    "report_family",
+    "created_at",
+    "screening_status",
+    "source_badge",
+    "disclaimer",
+    "template",
+    "renderer",
+    "inputs",
+    "outputs"
+  ],
+  "properties": {
+    "report_id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string", "minLength": 1 },
+    "report_family": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "kernel_registry_version": { "type": ["integer", "string", "null"] },
+    "git_commit": { "type": ["string", "null"] },
+    "screening_status": {
+      "type": "string",
+      "enum": ["screening", "indicative", "not_certified", "verified_example"]
+    },
+    "source_badge": {
+      "type": "string",
+      "enum": ["synthetic", "snapshot", "live", "mixed", "user_supplied"]
+    },
+    "disclaimer": { "type": "string", "minLength": 20 },
+    "template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "renderer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "hash"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string" },
+          "path": { "type": "string" },
+          "hash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "format", "hash"],
+        "properties": {
+          "path": { "type": "string" },
+          "format": { "type": "string", "enum": ["csv", "txt", "json", "html", "md", "pdf", "docx", "png", "parquet"] },
+          "hash": { "type": "string", "pattern": "^sha256:[a-fA-F0-9]{64}$" }
+        }
+      }
+    }
+  }
+}
