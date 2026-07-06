@@ -1,0 +1,28 @@
+{
+  "pack_id": "synthetic-pack-001",
+  "title": "Synthetic GlobalGrid2050 Evidence Pack",
+  "created_at": "2026-07-06T00:00:00Z",
+  "evidence": [
+    {
+      "id": "EV-SYN-001",
+      "evidence_class": "synthetic",
+      "title": "Synthetic site note",
+      "summary": "Public synthetic example used to test report instrumentation.",
+      "source_application": "reports/studio",
+      "source_kind": "synthetic",
+      "source_uri": "examples/synthetic/evidence-pack.json",
+      "created_at": "2026-07-06T00:00:00Z",
+      "kernel_registry_version": null,
+      "content_hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "confidence_state": "screening",
+      "verification_state": "synthetic",
+      "public_publishable": true,
+      "disclaimer_strength": "screening",
+      "tags": ["synthetic", "screening", "example"],
+      "data": {
+        "site_type": "example project",
+        "output_tiers": ["csv", "txt", "json", "html"]
+      }
+    }
+  ]
+}
