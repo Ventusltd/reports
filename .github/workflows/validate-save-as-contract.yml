@@ -1,0 +1,49 @@
+name: Validate Save As contract
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'contracts/SAVE_AS_CONTRACT.md'
+      - 'studio/report-save.js'
+      - '.github/workflows/validate-save-as-contract.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate browser Save As contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          contract = Path('contracts/SAVE_AS_CONTRACT.md').read_text(encoding='utf-8')
+          js = Path('studio/report-save.js').read_text(encoding='utf-8')
+
+          required_contract_terms = [
+              'showSaveFilePicker',
+              'createWritable',
+              'Blob',
+              'URL.createObjectURL',
+              'URL.revokeObjectURL',
+              'IndexedDB',
+              'OPFS',
+              'Do not use `localStorage` for datasets'
+          ]
+          for term in required_contract_terms:
+              if term not in contract:
+                  raise SystemExit(f'Save As contract missing: {term}')
+
+          required_js_terms = [
+              'showSaveFilePicker',
+              'createWritable',
+              'URL.createObjectURL',
+              'URL.revokeObjectURL'
+          ]
+          for term in required_js_terms:
+              if term not in js:
+                  raise SystemExit(f'report-save.js missing: {term}')
+
+          print('Save As contract validated')
+          PY
