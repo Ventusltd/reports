@@ -1,0 +1,44 @@
+{
+  "report_id": "report-synthetic-001",
+  "title": "Synthetic GlobalGrid2050 Screening Report",
+  "report_family": "plain_text_and_html_screening",
+  "created_at": "2026-07-06T00:00:00Z",
+  "kernel_registry_version": null,
+  "git_commit": null,
+  "screening_status": "screening",
+  "source_badge": "synthetic",
+  "disclaimer": "This is a synthetic screening example only. It is not engineering advice, certification, approval, bankability confirmation or a substitute for qualified professional review.",
+  "template": {
+    "id": "synthetic-screening-template",
+    "version": "0.1.0"
+  },
+  "renderer": {
+    "id": "browser-static-renderer",
+    "version": "0.1.0"
+  },
+  "inputs": [
+    {
+      "id": "EV-SYN-001",
+      "kind": "evidence",
+      "path": "examples/synthetic/evidence-pack.json",
+      "hash": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "dist/evidence.csv",
+      "format": "csv",
+      "hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "path": "dist/note.txt",
+      "format": "txt",
+      "hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    },
+    {
+      "path": "dist/report.html",
+      "format": "html",
+      "hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    }
+  ]
+}
