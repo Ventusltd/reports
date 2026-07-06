@@ -3,35 +3,229 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GlobalGrid2050 Reports Studio</title>
+  <title>GlobalGrid2050 Reports Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <p class="badge">Synthetic screening prototype</p>
-    <h1>GlobalGrid2050 Reports Studio</h1>
-    <p>This prototype proves CSV, TXT, JSON and HTML export from the same evidence object.</p>
-    <p>It uses File System Access API Save As where available and Blob download fallback everywhere else.</p>
+  <div class="shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">root@globalgrid2050:~/reports</p>
+        <h1>GlobalGrid2050 Reports</h1>
+        <p class="subtitle">Evidence-first report instrumentation for the GlobalGrid2050 operating system.</p>
+        <p class="lede">Create screening evidence, CSV exports, plain text notes, JSON evidence packs, HTML reports and browser print-to-PDF outputs from the same source object. Reports are projections over evidence, not the source of truth.</p>
+        <div class="hero-actions">
+          <button class="primary" data-format="json">Save evidence JSON</button>
+          <button data-format="csv">Save evidence CSV</button>
+          <button data-format="txt">Save plain text note</button>
+          <button data-format="html">Save HTML report</button>
+          <button onclick="window.print()">Print / Save as PDF</button>
+        </div>
+      </div>
 
-    <section>
-      <h2>Evidence</h2>
-      <pre id="evidence"></pre>
+      <aside class="status-panel">
+        <h2>LIVE INSTRUMENT STATUS</h2>
+        <table>
+          <tr><td>Mode</td><td>:</td><td class="green">SCREENING</td></tr>
+          <tr><td>Runtime</td><td>:</td><td>Static browser</td></tr>
+          <tr><td>Save path</td><td>:</td><td id="savePath">Detecting</td></tr>
+          <tr><td>Fallback</td><td>:</td><td>Blob download</td></tr>
+          <tr><td>Evidence</td><td>:</td><td>Synthetic public</td></tr>
+          <tr><td>Certification</td><td>:</td><td class="red">None</td></tr>
+        </table>
+      </aside>
+    </header>
+
+    <nav class="flagship">
+      <a href="https://globalgrid2050.com/">GlobalGrid2050 Homepage</a>
+      <span>Save As layer · evidence first · CSV always exists</span>
+    </nav>
+
+    <section class="dashboard-grid">
+      <article class="panel wide">
+        <div class="panel-head">
+          <h2>Report Instrumentation Console</h2>
+          <span class="badge">Synthetic prototype</span>
+        </div>
+        <p>This dashboard follows the GlobalGrid2050 terminal-style homepage and registry interface, but focuses on report outputs. It is designed as a full-screen user entry point for future report packs, journey files, provenance manifests and browser-side Save As workflows.</p>
+        <div class="output-grid">
+          <div><strong>JSON</strong><span>Evidence pack and report DNA seed</span></div>
+          <div><strong>CSV</strong><span>Engineering exchange tier</span></div>
+          <div><strong>TXT</strong><span>Plain text site note</span></div>
+          <div><strong>HTML</strong><span>Reviewable browser report</span></div>
+          <div><strong>PDF</strong><span>Browser print projection</span></div>
+          <div><strong>Journey</strong><span>Future session memory</span></div>
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>Evidence Object</h2>
+        <p class="muted">The atomic unit. Every output below is rendered from this same object.</p>
+        <pre id="evidence"></pre>
+      </article>
     </section>
 
-    <section class="actions">
-      <button data-format="json">Save evidence JSON</button>
-      <button data-format="csv">Save evidence CSV</button>
-      <button data-format="txt">Save plain text note</button>
-      <button data-format="html">Save HTML report</button>
-      <button onclick="window.print()">Print / Save as PDF</button>
+    <section class="spider-panel">
+      <div class="panel-head">
+        <div>
+          <h2>REPORTS STRUCTURE SPIDER</h2>
+          <p class="muted">High-level report operating layer. Click external nodes to open the wider GlobalGrid2050 ecosystem.</p>
+        </div>
+        <div class="legend">
+          <span><i class="dot bios"></i>Kernel</span>
+          <span><i class="dot app"></i>Reports</span>
+          <span><i class="dot data"></i>Evidence</span>
+          <span><i class="dot ext"></i>External apps</span>
+        </div>
+      </div>
+      <div class="spider-wrap">
+        <svg viewBox="0 0 1100 560" role="img" aria-label="Reports instrumentation spider map">
+          <path class="wire-cyan" d="M550 90 L550 250"/>
+          <path class="wire" d="M550 250 L280 145"/>
+          <path class="wire" d="M550 250 L820 145"/>
+          <path class="wire" d="M550 250 L260 330"/>
+          <path class="wire" d="M550 250 L840 330"/>
+          <path class="wire-cyan" d="M550 250 L550 440"/>
+          <path class="wire" d="M550 440 L380 500"/>
+          <path class="wire" d="M550 440 L720 500"/>
+
+          <a href="https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/" class="node bios"><circle cx="550" cy="90" r="58"/><text class="label" x="550" y="88" text-anchor="middle">KERNEL</text><text class="sub" x="550" y="111" text-anchor="middle">registry ↗</text></a>
+          <g class="node app"><circle cx="550" cy="250" r="78"/><text class="label" x="550" y="244" text-anchor="middle">REPORTS</text><text class="label" x="550" y="266" text-anchor="middle">ENGINE</text><text class="sub" x="550" y="292" text-anchor="middle">Save As layer</text></g>
+          <a href="https://globalgrid2050.com/repd_grid_atlasv8/" class="node ext"><circle cx="280" cy="145" r="55"/><text class="label" x="280" y="141" text-anchor="middle">GRID</text><text class="label" x="280" y="160" text-anchor="middle">ATLAS</text><text class="sub" x="280" y="181" text-anchor="middle">open ↗</text></a>
+          <a href="https://globalgrid2050.com/uk_energy_tracking/" class="node ext"><circle cx="820" cy="145" r="55"/><text class="label" x="820" y="141" text-anchor="middle">ENERGY</text><text class="label" x="820" y="160" text-anchor="middle">TRACKER</text><text class="sub" x="820" y="181" text-anchor="middle">open ↗</text></a>
+          <g class="node data"><circle cx="260" cy="330" r="55"/><text class="label" x="260" y="326" text-anchor="middle">EVIDENCE</text><text class="label" x="260" y="345" text-anchor="middle">OBJECTS</text><text class="sub" x="260" y="366" text-anchor="middle">JSON / hash</text></g>
+          <g class="node data"><circle cx="840" cy="330" r="55"/><text class="label" x="840" y="326" text-anchor="middle">CSV</text><text class="label" x="840" y="345" text-anchor="middle">EXPORTS</text><text class="sub" x="840" y="366" text-anchor="middle">always exists</text></g>
+          <g class="node app"><circle cx="550" cy="440" r="58"/><text class="label" x="550" y="437" text-anchor="middle">REPORT</text><text class="label" x="550" y="457" text-anchor="middle">DNA</text><text class="sub" x="550" y="479" text-anchor="middle">manifest</text></g>
+          <a href="https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/dashboard/sandbox/spider_full_po_test.html" class="node ext"><circle cx="380" cy="500" r="44"/><text class="label" x="380" y="497" text-anchor="middle">SPIDER</text><text class="sub" x="380" y="517" text-anchor="middle">open ↗</text></a>
+          <a href="https://github.com/Ventusltd/reports" class="node ext"><circle cx="720" cy="500" r="44"/><text class="label" x="720" y="497" text-anchor="middle">GITHUB</text><text class="sub" x="720" y="517" text-anchor="middle">repo ↗</text></a>
+        </svg>
+      </div>
     </section>
 
-    <section>
-      <h2>Disclaimer</h2>
-      <p class="disclaimer">This is a synthetic screening example only. It is not engineering advice, certification, approval, bankability confirmation or a substitute for qualified professional review.</p>
+    <section class="explore">
+      <div>
+        <h3 class="green">SAVE AS</h3>
+        <ul>
+          <li>File System Access API where available</li>
+          <li>Blob download fallback everywhere else</li>
+          <li>Object URLs revoked after use</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="cyan">EVIDENCE</h3>
+        <ul>
+          <li>content hash</li>
+          <li>confidence state</li>
+          <li>verification state</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="orange">OUTPUTS</h3>
+        <ul>
+          <li>JSON evidence pack</li>
+          <li>CSV engineering exchange</li>
+          <li>TXT and HTML views</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="purple">NEXT LAYERS</h3>
+        <ul>
+          <li>journey JSON</li>
+          <li>report DNA audit</li>
+          <li>registry graph nodes</li>
+        </ul>
+      </div>
     </section>
-  </main>
+
+    <section class="search-panel">
+      <label for="gridSearch">Search report instruments</label>
+      <input type="text" id="gridSearch" placeholder="Search evidence, CSV, journey, bankability, MVT, private wire..." autocomplete="off">
+      <div id="menu"></div>
+    </section>
+
+    <section class="cards">
+      <div class="card"><h3>SCREENING ONLY</h3><p>Outputs are not engineering advice, certification, approval, bankability confirmation or a substitute for qualified professional review.</p></div>
+      <div class="card"><h3>CSV ALWAYS EXISTS</h3><p>Rendered reports are useful, but structured data remains the trusted engineering exchange tier.</p></div>
+      <div class="card"><h3>USER FILESYSTEM FIRST</h3><p>The browser creates files locally. The user decides what to save, print, archive or commit to git.</p></div>
+    </section>
+
+    <footer class="footer">
+      <div><span class="green">root@globalgrid2050:~/reports#</span> Evidence captured. Reports rendered. Provenance retained.</div>
+      <div><a href="https://globalgrid2050.com/">GlobalGrid2050.com ↗</a><br><a href="https://www.ventusltd.com/">Ventus Ltd ↗</a></div>
+    </footer>
+  </div>
+
   <script src="report-save.js"></script>
   <script src="report-evidence.js"></script>
+  <script>
+    document.getElementById('savePath').textContent = ('showSaveFilePicker' in window) ? 'File System Access API' : 'Blob fallback';
+
+    const AREAS = [
+      { name: 'Core Outputs', children: [
+        { name: 'Evidence JSON', note: 'machine readable' },
+        { name: 'CSV evidence export', note: 'always exists' },
+        { name: 'Plain text note', note: 'Linux grade' },
+        { name: 'HTML screening report', note: 'browser review' },
+        { name: 'Print to PDF', note: 'browser projection' }
+      ]},
+      { name: 'Report Families', children: [
+        { name: 'Market survey report' },
+        { name: 'Private wire opportunity report' },
+        { name: 'Data centre readiness report' },
+        { name: 'Inverter and MVT skid comparison' },
+        { name: 'Bankability evidence pack' },
+        { name: 'G99 G100 SCADA cyber evidence register' }
+      ]},
+      { name: 'Future Instruments', children: [
+        { name: 'Journey JSON' },
+        { name: 'Report DNA manifest diff' },
+        { name: 'DuckDB Wasm CSV and Parquet export' },
+        { name: 'Registry graph report node' },
+        { name: 'Template pack marketplace' }
+      ]}
+    ];
+
+    const esc = (s) => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    const menu = document.getElementById('menu');
+
+    function rowHtml(r) {
+      const note = r.note ? ` <span class="dev-status">(${esc(r.note)})</span>` : '';
+      const key = (r.name + ' ' + (r.note || '')).toLowerCase();
+      return `<li data-name="${esc(key)}"><span>${esc(r.name)}</span>${note}</li>`;
+    }
+
+    function buildMenu() {
+      let html = '';
+      for (const a of AREAS) {
+        const rows = a.children.map(rowHtml).join('');
+        html += `<details class="area" data-name="${esc(a.name.toLowerCase())}"><summary>${esc(a.name)}</summary><ul class="drawer">${rows}</ul></details>`;
+      }
+      html += '<p class="noresult" id="noresult" style="display:none">No match.</p>';
+      menu.innerHTML = html;
+    }
+
+    function applySearch(raw) {
+      const q = raw.trim().toLowerCase();
+      let anyVisible = false;
+      document.querySelectorAll('details.area').forEach(d => {
+        const areaMatch = !!q && d.dataset.name.includes(q);
+        let childMatch = false;
+        d.querySelectorAll('li').forEach(li => {
+          const liMatch = li.dataset.name.includes(q);
+          const show = !q || areaMatch || liMatch;
+          li.style.display = show ? '' : 'none';
+          if (q && liMatch) childMatch = true;
+        });
+        const visible = !q || areaMatch || childMatch;
+        d.style.display = visible ? '' : 'none';
+        d.open = q ? visible : false;
+        if (visible) anyVisible = true;
+      });
+      document.getElementById('noresult').style.display = anyVisible ? 'none' : '';
+    }
+
+    buildMenu();
+    document.getElementById('gridSearch').addEventListener('input', e => applySearch(e.target.value));
+  </script>
 </body>
 </html>
