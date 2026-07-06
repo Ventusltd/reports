@@ -1,0 +1,54 @@
+name: Build example evidence pack
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'examples/**'
+      - 'schemas/**'
+      - '.github/workflows/build-example-evidence-pack.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build synthetic outputs
+        run: |
+          mkdir -p dist
+          cp examples/synthetic/evidence-pack.json dist/evidence-pack.json
+          cp examples/synthetic/report-dna.json dist/report-dna.json
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+
+          pack = json.loads(Path('examples/synthetic/evidence-pack.json').read_text())
+          evidence = pack['evidence']
+
+          with Path('dist/evidence.csv').open('w', newline='', encoding='utf-8') as f:
+              writer = csv.DictWriter(f, fieldnames=['id','evidence_class','title','source_application','confidence_state','verification_state','content_hash'])
+              writer.writeheader()
+              for item in evidence:
+                  writer.writerow({k: item.get(k, '') for k in writer.fieldnames})
+
+          Path('dist/note.txt').write_text(
+              'GlobalGrid2050 synthetic evidence note\n\n'
+              'Status: screening / synthetic / not certified\n'
+              f"Evidence items: {len(evidence)}\n"
+              'This is a public synthetic example.\n',
+              encoding='utf-8'
+          )
+
+          rows = ''.join(f"<tr><td>{e['id']}</td><td>{e['title']}</td><td>{e['verification_state']}</td></tr>" for e in evidence)
+          html = f"""<!doctype html><html><head><meta charset='utf-8'><title>GlobalGrid2050 Synthetic Report</title></head><body><h1>GlobalGrid2050 Synthetic Report</h1><p>Screening instrument only. Not certified.</p><table><thead><tr><th>ID</th><th>Title</th><th>State</th></tr></thead><tbody>{rows}</tbody></table></body></html>"""
+          Path('dist/report.html').write_text(html, encoding='utf-8')
+          print('built synthetic evidence outputs in dist/')
+          PY
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-evidence-pack
+          path: dist/
