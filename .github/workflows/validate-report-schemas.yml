@@ -1,0 +1,65 @@
+name: Validate report schemas
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'schemas/**'
+      - 'examples/**/*.json'
+      - '.github/workflows/validate-report-schemas.yml'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JSON syntax and required files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          required = [
+              Path('schemas/evidence.schema.json'),
+              Path('schemas/report-dna.schema.json'),
+              Path('schemas/journey.schema.json'),
+              Path('examples/synthetic/evidence-pack.json'),
+              Path('examples/synthetic/report-dna.json'),
+              Path('examples/synthetic/journey.json'),
+          ]
+
+          missing = [str(p) for p in required if not p.exists()]
+          if missing:
+              raise SystemExit(f'Missing required files: {missing}')
+
+          for path in required:
+              with path.open('r', encoding='utf-8') as f:
+                  json.load(f)
+              print(f'valid json: {path}')
+          PY
+
+      - name: Minimal contract assertions
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          evidence_schema = json.loads(Path('schemas/evidence.schema.json').read_text())
+          dna_schema = json.loads(Path('schemas/report-dna.schema.json').read_text())
+          journey_schema = json.loads(Path('schemas/journey.schema.json').read_text())
+
+          for key in ['content_hash', 'public_publishable', 'disclaimer_strength']:
+              assert key in evidence_schema['required'], f'evidence schema missing {key}'
+          for key in ['source_badge', 'disclaimer', 'outputs']:
+              assert key in dna_schema['required'], f'report DNA schema missing {key}'
+          assert 'entries' in journey_schema['required'], 'journey schema missing entries'
+
+          pack = json.loads(Path('examples/synthetic/evidence-pack.json').read_text())
+          assert pack['evidence'], 'synthetic evidence pack is empty'
+          for item in pack['evidence']:
+              assert item.get('public_publishable') is True, 'synthetic item must be public publishable'
+              assert 'sha256:' in item.get('content_hash', ''), 'synthetic item missing sha256 hash'
+          print('schema contract assertions passed')
+          PY
