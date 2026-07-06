@@ -12,16 +12,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Check static studio files
+
+      - name: Check required studio files
         run: |
           test -f studio/index.html
           test -f studio/report-save.js
           test -f studio/report-evidence.js
           test -f studio/style.css
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check studio/report-save.js
+          node --check studio/report-evidence.js
+
+      - name: Check Save As and fallback contract
+        run: |
           grep -q "showSaveFilePicker" studio/report-save.js
+          grep -q "createWritable" studio/report-save.js
+          grep -q "URL.createObjectURL" studio/report-save.js
           grep -q "URL.revokeObjectURL" studio/report-save.js
+          grep -q "blob-download-fallback" studio/report-save.js
+
+      - name: Check required output controls
+        run: |
+          grep -q "data-format=\"json\"" studio/index.html
           grep -q "data-format=\"csv\"" studio/index.html
+          grep -q "data-format=\"txt\"" studio/index.html
+          grep -q "data-format=\"html\"" studio/index.html
           grep -q "window.print" studio/index.html
+
+      - name: Check provenance and disclaimer terms
+        run: |
+          grep -q "Source badge" studio/report-evidence.js
+          grep -q "disclaimer" studio/report-evidence.js
+          grep -q "not engineering advice" studio/report-evidence.js
+          grep -q "public_publishable" studio/report-evidence.js
+          grep -q "content_hash" studio/report-evidence.js
+          grep -q "confidence_state" studio/report-evidence.js
+          grep -q "verification_state" studio/report-evidence.js
+
+      - name: Check generated output contract
+        run: |
+          grep -q "evidence-pack.json" studio/report-evidence.js
+          grep -q "evidence.csv" studio/report-evidence.js
+          grep -q "note.txt" studio/report-evidence.js
+          grep -q "report.html" studio/report-evidence.js
+          grep -q "text/csv" studio/report-evidence.js
+          grep -q "text/plain" studio/report-evidence.js
+          grep -q "text/html" studio/report-evidence.js
+          grep -q "application/json" studio/report-evidence.js
+
       - name: Package studio artifact
         uses: actions/upload-artifact@v4
         with:
