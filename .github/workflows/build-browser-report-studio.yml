@@ -1,0 +1,29 @@
+name: Build browser report studio
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'studio/**'
+      - '.github/workflows/build-browser-report-studio.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check static studio files
+        run: |
+          test -f studio/index.html
+          test -f studio/report-save.js
+          test -f studio/report-evidence.js
+          test -f studio/style.css
+          grep -q "showSaveFilePicker" studio/report-save.js
+          grep -q "URL.revokeObjectURL" studio/report-save.js
+          grep -q "data-format=\"csv\"" studio/index.html
+          grep -q "window.print" studio/index.html
+      - name: Package studio artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-report-studio
+          path: studio/
